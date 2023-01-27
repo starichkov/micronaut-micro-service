@@ -1,7 +1,0 @@
-GET http://localhost:8080/sample/Obi-Wan Kenobi
-
-###
-
-GET http://localhost:8080/async/sample/Darth Vader
-
-###

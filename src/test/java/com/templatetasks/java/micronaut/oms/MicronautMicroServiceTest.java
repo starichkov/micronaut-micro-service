@@ -1,4 +1,4 @@
-package com.templatetasks.java;
+package com.templatetasks.java.micronaut.oms;
 
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;

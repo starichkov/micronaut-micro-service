@@ -1,4 +1,4 @@
-package com.templatetasks.java.micronaut;
+package com.templatetasks.java.micronaut.oms;
 
 import io.micronaut.runtime.Micronaut;
 
