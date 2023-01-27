@@ -1,0 +1,15 @@
+GET http://localhost:8080/orders/user/1
+
+###
+
+POST http://localhost:8080/orders/1
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 13
+    }
+  ]
+}
