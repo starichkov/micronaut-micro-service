@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: com.templatetasks.java
+defaultPackage: com.templatetasks.java.micronaut
 testFramework: junit
 sourceLanguage: java
 buildTool: maven
