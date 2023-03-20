@@ -1,6 +1,6 @@
 package com.templatetasks.java.micronaut.oms.service.impl;
 
-import com.templatetasks.java.micronaut.oms.api.CreateOrderRequest;
+import com.templatetasks.java.micronaut.oms.api.OrderRequest;
 import com.templatetasks.java.micronaut.oms.data.Order;
 import com.templatetasks.java.micronaut.oms.data.access.CustomerRepository;
 import com.templatetasks.java.micronaut.oms.data.access.OrderRepository;
@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Nullable
     @Override
-    public Order create(Long customerId, CreateOrderRequest createRequest) {
+    public Order create(Long customerId, OrderRequest orderRequest) {
         if (!customerRepository.existsById(customerId)) {
             log.error("No such customer");
             return null;
@@ -84,8 +84,8 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomerId(customerId);
         order.setItems(itemEntities);
 
-        createRequest.getItems()
-                     .forEach(item -> productRepository.findById(item.getProductId())
+        orderRequest.getItems()
+                    .forEach(item -> productRepository.findById(item.getProductId())
                                                        .ifPresent(
                                                                product -> {
                                                                    var itemEntity = new OrderItemEntity();
@@ -102,17 +102,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order update(Long orderId, Order order) {
+    public Order update(Long orderId, OrderRequest orderRequest) {
         return repository.findById(orderId)
-                         .map(orderEntity -> doUpdate(orderEntity, order))
+                         .map(orderEntity -> doUpdate(orderEntity, orderRequest))
                          .map(repository::save)
                          .map(orderMapper::map)
                          .orElse(null);
     }
 
-    // TODO
-    private OrderEntity doUpdate(OrderEntity stored, Order provided) {
-        stored.setShipped(provided.getShipped());
+    private OrderEntity doUpdate(OrderEntity stored, OrderRequest orderRequest) {
+        log.debug("Order request: {}", orderRequest);
+        // TODO
         return stored;
     }
 

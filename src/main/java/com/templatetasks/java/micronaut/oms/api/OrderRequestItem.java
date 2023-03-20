@@ -10,7 +10,7 @@ import javax.validation.constraints.Positive;
  * @since 20.03.2023 16:23
  */
 @Data
-public class CreateOrderRequestItem {
+public class OrderRequestItem {
 
     @NotNull
     @Positive

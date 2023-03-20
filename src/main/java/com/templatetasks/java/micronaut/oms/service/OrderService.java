@@ -1,6 +1,6 @@
 package com.templatetasks.java.micronaut.oms.service;
 
-import com.templatetasks.java.micronaut.oms.api.CreateOrderRequest;
+import com.templatetasks.java.micronaut.oms.api.OrderRequest;
 import com.templatetasks.java.micronaut.oms.data.Order;
 import io.micronaut.core.annotation.Nullable;
 
@@ -18,9 +18,9 @@ public interface OrderService {
     List<Order> getByCustomerId(Long customerId);
 
     @Nullable
-    Order create(Long customerId, CreateOrderRequest createRequest);
+    Order create(Long customerId, OrderRequest orderRequest);
 
-    Order update(Long orderId, Order order);
+    Order update(Long orderId, OrderRequest orderRequest);
 
     void delete(Long orderId);
 }

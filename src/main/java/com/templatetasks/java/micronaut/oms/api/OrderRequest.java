@@ -11,9 +11,9 @@ import java.util.List;
  * @since 20.03.2023 16:20
  */
 @Data
-public class CreateOrderRequest {
+public class OrderRequest {
 
     @NotNull
     @NotEmpty
-    private List<@NotNull CreateOrderRequestItem> items;
+    private List<@NotNull OrderRequestItem> items;
 }
