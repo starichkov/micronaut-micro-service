@@ -1,6 +1,6 @@
 package com.templatetasks.java.micronaut.oms.api.http;
 
-import com.templatetasks.java.micronaut.oms.api.CreateOrderRequest;
+import com.templatetasks.java.micronaut.oms.api.OrderRequest;
 import com.templatetasks.java.micronaut.oms.data.Order;
 import com.templatetasks.java.micronaut.oms.service.OrderService;
 import io.micronaut.http.annotation.Controller;
@@ -38,7 +38,7 @@ public class OrderController {
     }
 
     @Post("/{customerId}")
-    public Order create(Long customerId, CreateOrderRequest createRequest) {
+    public Order create(Long customerId, OrderRequest createRequest) {
         return service.create(customerId, createRequest);
     }
 }
