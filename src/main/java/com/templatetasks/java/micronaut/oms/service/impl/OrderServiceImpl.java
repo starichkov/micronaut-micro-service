@@ -86,16 +86,11 @@ public class OrderServiceImpl implements OrderService {
 
         orderRequest.getItems()
                     .forEach(item -> productRepository.findById(item.getProductId())
-                                                       .ifPresent(
-                                                               product -> {
-                                                                   var itemEntity = new OrderItemEntity();
-                                                                   itemEntity.setOrder(order);
-                                                                   itemEntity.setProduct(product);
-                                                                   itemEntity.setQuantity(item.getQuantity());
-                                                                   itemEntities.add(itemEntity);
-                                                               }
-                                                       )
-                     );
+                                                      .ifPresent(product -> itemEntities.add(
+                                                                      new OrderItemEntity(order, product, item.getQuantity())
+                                                              )
+                                                      )
+                    );
 
         OrderEntity saved = repository.save(order);
         return orderMapper.map(saved);
@@ -112,7 +107,9 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderEntity doUpdate(OrderEntity stored, OrderRequest orderRequest) {
         log.debug("Order request: {}", orderRequest);
-        // TODO
+        // TODO 1. removed items - presents in stored, but missing in request
+        // TODO 2. modified quantities - presents in both stored and request, check quantity
+        // TODO 3. added items - missing in stored, but presents in request
         return stored;
     }
 

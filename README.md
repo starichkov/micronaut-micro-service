@@ -17,8 +17,16 @@ This project is a Micronaut framework based, 'ready-to-play' micro-service.
 
 ## GraalVM build
 
+### Generate a native executable using Maven
+
+```shell
+mvn clean package -Pgraalvm -Dpackaging=native-image
 ```
-mvn clean package -Pgraalvm -Dpackaging=native-image -e -X
+
+### Generate a native executable inside Docker
+
+```shell
+mvn clean package -Dpackaging=docker-native
 ```
 
 ---
