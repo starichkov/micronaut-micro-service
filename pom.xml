@@ -54,10 +54,10 @@
         <exec.mainClass>com.templatetasks.java.micronaut.oms.MicronautApplication</exec.mainClass>
 
         <!-- Overrides from Micronaut BOM - it defines outdated and/or vulnerable versions by default -->
-        <h2.version>2.1.210</h2.version>
-        <mysql.driver.version>8.0.32</mysql.driver.version>
+        <h2.version>2.1.214</h2.version>
+        <mysql.driver.version>8.0.33</mysql.driver.version>
 
-        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
 
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <maven.pmd.plugin.version>3.20.0</maven.pmd.plugin.version>
