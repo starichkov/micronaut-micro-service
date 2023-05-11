@@ -53,8 +53,9 @@
         <micronaut.runtime>netty</micronaut.runtime>
         <exec.mainClass>com.templatetasks.java.micronaut.MicronautApplication</exec.mainClass>
 
-        <maven.surefire.plugin.version>3.0.0-M9</maven.surefire.plugin.version>
-        <jacoco.maven.plugin.version>0.8.8</jacoco.maven.plugin.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>3.1.0</maven.surefire.plugin.version>
+        <jacoco.maven.plugin.version>0.8.10</jacoco.maven.plugin.version>
     </properties>
 
     <dependencies>
@@ -122,6 +123,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <!-- Uncomment to enable incremental compilation -->
                     <!-- <useIncrementalCompilation>false</useIncrementalCompilation> -->
