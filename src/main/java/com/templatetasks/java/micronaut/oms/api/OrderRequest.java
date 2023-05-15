@@ -1,10 +1,11 @@
 package com.templatetasks.java.micronaut.oms.api;
 
+import com.templatetasks.java.micronaut.oms.api.validation.UniqueProductPerOperationConstraint;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author Vadim Starichkov (starichkovva@gmail.com)
@@ -15,5 +16,6 @@ public class OrderRequest {
 
     @NotNull
     @NotEmpty
-    private List<@NotNull OrderRequestItem> items;
+    @UniqueProductPerOperationConstraint
+    private Map<@NotNull OrderRequestItemsOperation, @NotNull OrderRequestItems> items;
 }
