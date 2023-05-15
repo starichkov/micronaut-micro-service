@@ -2,6 +2,8 @@ package com.templatetasks.java.micronaut.oms.service.impl;
 
 import com.templatetasks.java.micronaut.oms.api.OrderRequest;
 import com.templatetasks.java.micronaut.oms.api.OrderRequestItem;
+import com.templatetasks.java.micronaut.oms.api.OrderRequestItems;
+import com.templatetasks.java.micronaut.oms.api.OrderRequestItemsOperation;
 import com.templatetasks.java.micronaut.oms.data.Order;
 import com.templatetasks.java.micronaut.oms.data.entity.CustomerEntity;
 import com.templatetasks.java.micronaut.oms.data.entity.OrderEntity;
@@ -97,7 +99,7 @@ class OrderServiceImplTest {
         createRequestItem.setQuantity(7L);
 
         var createRequest = new OrderRequest();
-        createRequest.setItems(List.of(createRequestItem));
+        createRequest.setItems(Map.of(OrderRequestItemsOperation.ADD, OrderRequestItems.create(createRequestItem)));
 
         var order = service.create(47L, createRequest);
         assertNull(order);
@@ -122,7 +124,7 @@ class OrderServiceImplTest {
         createRequestItem.setQuantity(7L);
 
         var createRequest = new OrderRequest();
-        createRequest.setItems(List.of(createRequestItem));
+        createRequest.setItems(Map.of(OrderRequestItemsOperation.ADD, OrderRequestItems.create(createRequestItem)));
 
         var order = service.create(customerEntity.getId(), createRequest);
         testOrder(order, customerEntity, productEntity, createRequestItem.getQuantity());

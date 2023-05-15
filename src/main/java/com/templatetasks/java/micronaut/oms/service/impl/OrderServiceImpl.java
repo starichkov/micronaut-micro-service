@@ -1,6 +1,7 @@
 package com.templatetasks.java.micronaut.oms.service.impl;
 
 import com.templatetasks.java.micronaut.oms.api.OrderRequest;
+import com.templatetasks.java.micronaut.oms.api.OrderRequestItemsOperation;
 import com.templatetasks.java.micronaut.oms.data.Order;
 import com.templatetasks.java.micronaut.oms.data.access.CustomerRepository;
 import com.templatetasks.java.micronaut.oms.data.access.OrderRepository;
@@ -85,6 +86,8 @@ public class OrderServiceImpl implements OrderService {
         order.setItems(itemEntities);
 
         orderRequest.getItems()
+                    .get(OrderRequestItemsOperation.ADD)
+                    .getItems()
                     .forEach(item -> productRepository.findById(item.getProductId())
                                                       .ifPresent(product -> itemEntities.add(
                                                                       new OrderItemEntity(order, product, item.getQuantity())
