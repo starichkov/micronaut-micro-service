@@ -1,6 +1,7 @@
 package com.templatetasks.java.micronaut.oms.service.impl;
 
 import com.templatetasks.java.micronaut.oms.api.OrderRequest;
+import com.templatetasks.java.micronaut.oms.api.OrderRequestItems;
 import com.templatetasks.java.micronaut.oms.api.OrderRequestItemsOperation;
 import com.templatetasks.java.micronaut.oms.data.Order;
 import com.templatetasks.java.micronaut.oms.data.access.CustomerRepository;
@@ -18,9 +19,11 @@ import jakarta.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -110,9 +113,24 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderEntity doUpdate(OrderEntity stored, OrderRequest orderRequest) {
         log.debug("Order request: {}", orderRequest);
-        // TODO 1. removed items - presents in stored, but missing in request
-        // TODO 2. modified quantities - presents in both stored and request, check quantity
-        // TODO 3. added items - missing in stored, but presents in request
+
+        Map<OrderRequestItemsOperation, OrderRequestItems> itemsFromRequest = orderRequest.getItems();
+        itemsFromRequest.forEach((operation, items) -> {
+            switch (operation) {
+                case ADD -> {
+                    // TODO 1. added items - missing in stored, but presents in request
+                }
+                case MODIFY -> {
+                    // TODO 2. modified quantities - presents in both stored and request, check quantity
+                    // TODO 2.1 - Quantity = 0 > REMOVE
+                    // TODO 2.2 - Item is not yet present > ADD
+                }
+                case REMOVE -> {
+                    // TODO 3. removed items - presents in stored, but missing in request
+                }
+            }
+        });
+
         return stored;
     }
 
