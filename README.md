@@ -1,5 +1,6 @@
-[![codecov](https://img.shields.io/codecov/c/github/starichkovva/micronaut-micro-service?style=for-the-badge)](https://app.codecov.io/github/starichkovva/micronaut-micro-service)
-[![GitHub license](https://img.shields.io/github/license/starichkovva/micronaut-micro-service?style=for-the-badge)](https://github.com/starichkovva/micronaut-micro-service/blob/main/LICENSE.md)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/starichkov/micronaut-micro-service/maven.yml?style=for-the-badge)](https://github.com/starichkov/micronaut-micro-service/actions/workflows/maven.yml)
+[![codecov](https://img.shields.io/codecov/c/github/starichkov/micronaut-micro-service?style=for-the-badge)](https://app.codecov.io/github/starichkov/micronaut-micro-service)
+[![GitHub license](https://img.shields.io/github/license/starichkov/micronaut-micro-service?style=for-the-badge)](https://github.com/starichkov/micronaut-micro-service/blob/main/LICENSE.md)
 
 Micronaut microservice
 =
