@@ -12,7 +12,7 @@ This project is a Micronaut framework based, 'ready-to-play' micro-service.
 |-----------|---------|
 | Java      | 17      |
 | Maven     | 3.8.1+  |
-| Micronaut | 3.9.5   |
+| Micronaut | 4.0.2   |
 
 ## GraalVM build
 
