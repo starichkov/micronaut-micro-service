@@ -53,10 +53,10 @@
         <micronaut.runtime>netty</micronaut.runtime>
         <exec.mainClass>com.templatetasks.java.micronaut.MicronautApplication</exec.mainClass>
 
-        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
         <maven.enforcer.plugin.version>3.4.1</maven.enforcer.plugin.version>
-        <maven.surefire.plugin.version>3.2.3</maven.surefire.plugin.version>
-        <jacoco.maven.plugin.version>0.8.11</jacoco.maven.plugin.version>
+        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+        <jacoco.maven.plugin.version>0.8.12</jacoco.maven.plugin.version>
     </properties>
 
     <dependencies>
