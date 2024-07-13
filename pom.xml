@@ -47,8 +47,8 @@
 
     <properties>
         <packaging>jar</packaging>
-        <jdk.version>17</jdk.version>
-        <release.version>17</release.version>
+        <jdk.version>21</jdk.version>
+        <release.version>21</release.version>
         <micronaut.version>4.4.3</micronaut.version>
         <micronaut.runtime>netty</micronaut.runtime>
         <exec.mainClass>com.templatetasks.java.micronaut.MicronautApplication</exec.mainClass>
