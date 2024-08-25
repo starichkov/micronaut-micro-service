@@ -54,8 +54,8 @@
         <exec.mainClass>com.templatetasks.java.micronaut.MicronautApplication</exec.mainClass>
 
         <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
-        <maven.enforcer.plugin.version>3.4.1</maven.enforcer.plugin.version>
-        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+        <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
+        <maven.surefire.plugin.version>3.4.0</maven.surefire.plugin.version>
         <jacoco.maven.plugin.version>0.8.12</jacoco.maven.plugin.version>
     </properties>
 
