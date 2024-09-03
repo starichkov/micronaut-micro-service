@@ -15,7 +15,7 @@
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Micronaut sample microservice service with multiple features available</description>
-    <url>https://github.com/starichkovva/micronaut-micro-service</url>
+    <url>https://github.com/starichkov/micronaut-micro-service</url>
 
     <licenses>
         <license>
@@ -25,9 +25,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com/starichkovva/micronaut-micro-service.git</connection>
-        <developerConnection>scm:git:ssh://github.com:starichkovva/micronaut-micro-service.git</developerConnection>
-        <url>https://github.com/starichkovva/micronaut-micro-service</url>
+        <connection>scm:git:git://github.com/starichkov/micronaut-micro-service.git</connection>
+        <developerConnection>scm:git:ssh://github.com:starichkov/micronaut-micro-service.git</developerConnection>
+        <url>https://github.com/starichkov/micronaut-micro-service</url>
     </scm>
 
     <developers>
