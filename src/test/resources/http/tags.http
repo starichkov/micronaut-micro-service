@@ -1,0 +1,27 @@
+GET http://localhost:8080/tags/1
+
+###
+
+POST http://localhost:8080/tags
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@domain.com"
+}
+
+###
+
+PATCH http://localhost:8080/tags/1
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Deere",
+  "email": "john.deere@deere.com"
+}
+
+###
+
+DELETE http://localhost:8080/tags/1
