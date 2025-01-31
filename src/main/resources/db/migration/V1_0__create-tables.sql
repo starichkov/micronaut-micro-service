@@ -1,44 +1,29 @@
-create table customers
+create table notes
+(
+    id          bigint    not null auto_increment,
+    title       varchar(255),
+    content     text,
+    created_at  timestamp not null default current_timestamp(),
+    modified_at timestamp not null default current_timestamp(),
+    version     bigint    not null,
+    primary key (id)
+);
+
+create table tags
 (
     id          bigint       not null auto_increment,
-    first_name  varchar(255) not null,
-    last_name   varchar(255) not null,
-    email       varchar(255) not null,
+    label       varchar(255) not null,
     created_at  timestamp    not null default current_timestamp(),
     modified_at timestamp    not null default current_timestamp(),
     version     bigint       not null,
     primary key (id)
 );
 
-create table orders
+create table note_tag
 (
-    id          bigint    not null auto_increment,
-    customer_id bigint,
-    created_at  timestamp not null default current_timestamp(),
-    modified_at timestamp not null default current_timestamp(),
-    shipped_at  timestamp,
-    primary key (id),
-    foreign key (customer_id) REFERENCES customers (id)
-);
-
-create table products
-(
-    id          bigint         not null auto_increment,
-    name        varchar(255)   not null,
-    description text,
-    price       decimal(15, 2) not null,
-    created_at  timestamp      not null default current_timestamp(),
-    modified_at timestamp      not null default current_timestamp(),
-    version     bigint         not null,
-    primary key (id)
-);
-
-create table order_items
-(
-    order_id   bigint not null,
-    product_id bigint not null,
-    quantity   int    not null default 1,
-    primary key (order_id, product_id),
-    foreign key (order_id) REFERENCES orders (id),
-    foreign key (product_id) REFERENCES products (id)
+    note_id bigint not null,
+    tag_id  bigint not null,
+    primary key (note_id, tag_id),
+    foreign key (note_id) REFERENCES notes (id),
+    foreign key (tag_id) REFERENCES tags (id)
 )
