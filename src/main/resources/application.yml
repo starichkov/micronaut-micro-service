@@ -1,12 +1,19 @@
+database:
+  host: ${DATABASE_HOST:localhost}
+  port: ${DATABASE_PORT:3306}
+  schema: ${DATABASE_SCHEMA:micro_notes}
+  user: ${DATABASE_USER}
+  pass: ${DATABASE_PASS}
+
 micronaut:
   application:
     name: micronautMicroService
 
 datasources:
   default:
-    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_SCHEMA:microshop}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASS}
+    url: jdbc:mysql://${database.host}:${database.port}/${database.schema}
+    username: ${database.user}
+    password: ${database.pass}
     driverClassName: com.mysql.cj.jdbc.Driver
 
 flyway:
