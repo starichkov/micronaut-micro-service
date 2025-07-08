@@ -8,12 +8,12 @@ This project is a Micronaut framework based, 'ready-to-play' micro-service.
 
 ## Technical information
 
-| Name      | Version |
-|-----------|---------|
-| Java      | 21      |
-| Maven     | 3.8.1+  |
-| Micronaut | 4.9.1   |
-| MySQL     | 8.0     |
+| Name       | Version |
+|------------|---------|
+| Java       | 21      |
+| Maven      | 3.8.1+  |
+| Micronaut  | 4.9.1   |
+| PostgreSQL | 17.5    |
 
 ## GraalVM build
 

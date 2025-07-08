@@ -1,22 +1,20 @@
 create table notes
 (
-    id          bigint    not null auto_increment,
+    id          bigserial primary key,
     title       varchar(255),
     content     text,
-    created_at  timestamp not null default current_timestamp(),
-    modified_at timestamp not null default current_timestamp(),
-    version     bigint    not null,
-    primary key (id)
+    created_at  timestamp not null default current_timestamp,
+    modified_at timestamp not null default current_timestamp,
+    version     bigint    not null
 );
 
 create table tags
 (
-    id          bigint       not null auto_increment,
+    id          bigserial primary key,
     label       varchar(255) not null,
-    created_at  timestamp    not null default current_timestamp(),
-    modified_at timestamp    not null default current_timestamp(),
-    version     bigint       not null,
-    primary key (id)
+    created_at  timestamp    not null default current_timestamp,
+    modified_at timestamp    not null default current_timestamp,
+    version     bigint       not null
 );
 
 create table note_tag
@@ -24,6 +22,6 @@ create table note_tag
     note_id bigint not null,
     tag_id  bigint not null,
     primary key (note_id, tag_id),
-    foreign key (note_id) REFERENCES notes (id),
-    foreign key (tag_id) REFERENCES tags (id)
-)
+    foreign key (note_id) references notes (id) on delete cascade,
+    foreign key (tag_id) references tags (id) on delete cascade
+);
