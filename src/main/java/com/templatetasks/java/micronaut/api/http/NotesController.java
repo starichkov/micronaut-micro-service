@@ -8,6 +8,8 @@ import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import jakarta.inject.Inject;
 
+import java.util.List;
+
 /**
  * @author Vadim Starichkov (starichkovva@gmail.com)
  * @since 17.03.2023 13:24
@@ -21,6 +23,11 @@ public class NotesController {
     @Inject
     public NotesController(NoteService noteService) {
         this.service = noteService;
+    }
+
+    @Get(produces = MediaType.APPLICATION_JSON)
+    public List<Note> findAll() {
+        return service.findAll();
     }
 
     @Get(value = "/{id}", produces = MediaType.APPLICATION_JSON)
@@ -41,5 +48,15 @@ public class NotesController {
     @Delete("/{id}")
     public void delete(@PathVariable("id") Long id) {
         service.delete(id);
+    }
+
+    @Post(value = "/{noteId}/tags/{tagId}", produces = MediaType.APPLICATION_JSON)
+    public Note addTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
+        return service.addTag(noteId, tagId);
+    }
+
+    @Delete(value = "/{noteId}/tags/{tagId}", produces = MediaType.APPLICATION_JSON)
+    public Note removeTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
+        return service.removeTag(noteId, tagId);
     }
 }

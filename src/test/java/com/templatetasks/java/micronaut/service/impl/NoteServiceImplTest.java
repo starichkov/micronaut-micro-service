@@ -2,6 +2,7 @@ package com.templatetasks.java.micronaut.service.impl;
 
 import com.templatetasks.java.micronaut.data.Note;
 import com.templatetasks.java.micronaut.data.entity.NoteEntity;
+import com.templatetasks.java.micronaut.data.entity.TagEntity;
 import com.templatetasks.java.micronaut.service.NoteService;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
@@ -111,5 +112,108 @@ class NoteServiceImplTest {
     void delete() {
         var id = 66L;
         service.delete(id);
+    }
+
+    @Test
+    void findAll() {
+        // Create a few notes
+        var note1 = new NoteEntity();
+        note1.setTitle("Note 1");
+        note1.setContent("Content 1");
+
+        var note2 = new NoteEntity();
+        note2.setTitle("Note 2");
+        note2.setContent("Content 2");
+
+        note1 = em.merge(note1);
+        note2 = em.merge(note2);
+        em.getTransaction().commit();
+
+        // Get all notes
+        var notes = service.findAll();
+
+        // Verify
+        assertNotNull(notes);
+        assertTrue(notes.size() >= 2);
+        assertTrue(notes.stream().anyMatch(n -> n.getTitle().equals("Note 1")));
+        assertTrue(notes.stream().anyMatch(n -> n.getTitle().equals("Note 2")));
+    }
+
+    @Test
+    void addTagNotFound() {
+        var noteId = 404L;
+        var tagId = 1L;
+
+        var result = service.addTag(noteId, tagId);
+        assertNull(result);
+    }
+
+    @Test
+    void addTag() {
+        // Create a note and a tag
+        var note = new NoteEntity();
+        note.setTitle("Note with tag");
+        note.setContent("This note will have a tag");
+
+        var tag = new TagEntity();
+        tag.setLabel("test-tag");
+
+        note = em.merge(note);
+        tag = em.merge(tag);
+        em.getTransaction().commit();
+
+        // Add the tag to the note
+        var result = service.addTag(note.getId(), tag.getId());
+
+        // Verify
+        assertNotNull(result);
+        assertEquals(note.getId(), result.getId());
+        assertEquals(note.getTitle(), result.getTitle());
+        assertEquals(note.getContent(), result.getContent());
+
+        // Verify the tag was added by getting the note again
+        var updatedNote = service.get(note.getId());
+        assertNotNull(updatedNote);
+    }
+
+    @Test
+    void removeTagNotFound() {
+        var noteId = 404L;
+        var tagId = 1L;
+
+        var result = service.removeTag(noteId, tagId);
+        assertNull(result);
+    }
+
+    @Test
+    void removeTag() {
+        // Create a note and a tag
+        var note = new NoteEntity();
+        note.setTitle("Note with tag to remove");
+        note.setContent("This note will have a tag that gets removed");
+
+        var tag = new TagEntity();
+        tag.setLabel("tag-to-remove");
+
+        note = em.merge(note);
+        tag = em.merge(tag);
+
+        // Add the tag to the note
+        note.addTag(tag);
+        note = em.merge(note);
+        em.getTransaction().commit();
+
+        // Remove the tag from the note
+        var result = service.removeTag(note.getId(), tag.getId());
+
+        // Verify
+        assertNotNull(result);
+        assertEquals(note.getId(), result.getId());
+        assertEquals(note.getTitle(), result.getTitle());
+        assertEquals(note.getContent(), result.getContent());
+
+        // Verify the tag was removed by getting the note again
+        var updatedNote = service.get(note.getId());
+        assertNotNull(updatedNote);
     }
 }

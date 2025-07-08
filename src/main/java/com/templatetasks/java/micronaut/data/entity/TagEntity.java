@@ -19,7 +19,7 @@ import java.util.Set;
 @Entity
 @Table(name = "tags")
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"notes"})
 public class TagEntity extends BaseEntity {
 
     @NotNull

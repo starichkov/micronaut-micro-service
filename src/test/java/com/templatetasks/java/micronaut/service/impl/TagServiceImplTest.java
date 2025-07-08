@@ -101,6 +101,29 @@ class TagServiceImplTest {
         service.delete(id);
     }
 
+    @Test
+    void findAll() {
+        // Create a few tags
+        var tag1 = new TagEntity();
+        tag1.setLabel("tag-1");
+
+        var tag2 = new TagEntity();
+        tag2.setLabel("tag-2");
+
+        tag1 = em.merge(tag1);
+        tag2 = em.merge(tag2);
+        em.getTransaction().commit();
+
+        // Get all tags
+        var tags = service.findAll();
+
+        // Verify
+        assertNotNull(tags);
+        assertTrue(tags.size() >= 2);
+        assertTrue(tags.stream().anyMatch(t -> t.getLabel().equals("tag-1")));
+        assertTrue(tags.stream().anyMatch(t -> t.getLabel().equals("tag-2")));
+    }
+
     private void checkEquals(TagEntity entity, Tag tag) {
         assertEquals(entity.getId(), tag.getId());
         assertEquals(entity.getLabel(), tag.getLabel());

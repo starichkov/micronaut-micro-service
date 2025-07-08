@@ -8,6 +8,8 @@ import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import jakarta.inject.Inject;
 
+import java.util.List;
+
 /**
  * @author Vadim Starichkov (starichkovva@gmail.com)
  * @since 14.09.2022 15:24
@@ -23,7 +25,12 @@ public class TagsController {
         this.service = tagService;
     }
 
-    @Get("/{id}")
+    @Get(produces = MediaType.APPLICATION_JSON)
+    public List<Tag> findAll() {
+        return service.findAll();
+    }
+
+    @Get(value = "/{id}", produces = MediaType.APPLICATION_JSON)
     public Tag get(Long id) {
         return service.get(id);
     }

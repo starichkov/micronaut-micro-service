@@ -12,6 +12,10 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 /**
  * @author Vadim Starichkov (starichkovva@gmail.com)
  * @since 14.09.2022 15:26
@@ -37,6 +41,14 @@ public class TagServiceImpl implements TagService {
         return repository.findById(id)
                        .map(tagMapper::map)
                        .orElse(null);
+    }
+
+    @Override
+    @ReadOnly
+    public List<Tag> findAll() {
+        return StreamSupport.stream(repository.findAll().spliterator(), false)
+                .map(tagMapper::map)
+                .collect(Collectors.toList());
     }
 
     @Override
