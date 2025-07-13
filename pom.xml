@@ -70,6 +70,10 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>io.micronaut</groupId>
+            <artifactId>micronaut-management</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.micronaut.validation</groupId>
             <artifactId>micronaut-validation</artifactId>
             <scope>compile</scope>
