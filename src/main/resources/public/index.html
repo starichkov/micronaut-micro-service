@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes and Tags Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Notes and Tags Manager</h1>
+        </header>
+        
+        <div class="main-content">
+            <div class="notes-section">
+                <h2>Notes</h2>
+                <div class="notes-form">
+                    <h3>Add/Edit Note</h3>
+                    <form id="note-form">
+                        <input type="hidden" id="note-id">
+                        <div class="form-group">
+                            <label for="note-title">Title:</label>
+                            <input type="text" id="note-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="note-content">Content:</label>
+                            <textarea id="note-content" rows="4"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" id="save-note">Save</button>
+                            <button type="button" id="cancel-note">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="notes-list">
+                    <h3>Notes List</h3>
+                    <div id="notes-container"></div>
+                </div>
+            </div>
+            
+            <div class="tags-section">
+                <h2>Tags</h2>
+                <div class="tags-form">
+                    <h3>Add/Edit Tag</h3>
+                    <form id="tag-form">
+                        <input type="hidden" id="tag-id">
+                        <div class="form-group">
+                            <label for="tag-label">Label:</label>
+                            <input type="text" id="tag-label" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" id="save-tag">Save</button>
+                            <button type="button" id="cancel-tag">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="tags-list">
+                    <h3>Tags List</h3>
+                    <div id="tags-container"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="note-tag-management" style="display: none;">
+            <h2>Manage Tags for Note: <span id="selected-note-title"></span></h2>
+            <div class="available-tags">
+                <h3>Available Tags</h3>
+                <div id="available-tags-container"></div>
+            </div>
+            <div class="note-tags">
+                <h3>Tags for this Note</h3>
+                <div id="note-tags-container"></div>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="close-tag-management">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

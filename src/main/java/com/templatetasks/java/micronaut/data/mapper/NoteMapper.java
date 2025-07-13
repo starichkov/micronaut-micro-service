@@ -11,7 +11,8 @@ import org.mapstruct.MappingConstants;
  * @since 17.03.2023 21:25
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.JAKARTA,
-        injectionStrategy = InjectionStrategy.CONSTRUCTOR
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+        uses = {TagMapper.class}
 )
 public interface NoteMapper {
 

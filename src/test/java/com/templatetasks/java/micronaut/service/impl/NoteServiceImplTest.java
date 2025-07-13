@@ -174,6 +174,10 @@ class NoteServiceImplTest {
         // Verify the tag was added by getting the note again
         var updatedNote = service.get(note.getId());
         assertNotNull(updatedNote);
+        assertNotNull(updatedNote.getTags());
+        assertFalse(updatedNote.getTags().isEmpty());
+        assertEquals(1, updatedNote.getTags().size());
+        assertEquals(tag.getLabel(), updatedNote.getTags().iterator().next().getLabel());
     }
 
     @Test
@@ -215,5 +219,7 @@ class NoteServiceImplTest {
         // Verify the tag was removed by getting the note again
         var updatedNote = service.get(note.getId());
         assertNotNull(updatedNote);
+        assertNotNull(updatedNote.getTags());
+        assertTrue(updatedNote.getTags().isEmpty());
     }
 }

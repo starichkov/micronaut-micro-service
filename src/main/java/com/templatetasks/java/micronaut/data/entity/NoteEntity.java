@@ -29,7 +29,7 @@ public class NoteEntity extends BaseEntity {
     @Column(name = "content", nullable = true)
     private String content;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "note_tag", // Name of the join table
             joinColumns = @JoinColumn(name = "note_id"), // Foreign key in the join table for Note

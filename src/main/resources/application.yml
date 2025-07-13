@@ -8,6 +8,12 @@ database:
 micronaut:
   application:
     name: micronautMicroService
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: /**
+        paths: classpath:public
 
 datasources:
   default:
@@ -31,7 +37,7 @@ jpa:
 netty:
   default:
     allocator:
-      max-order: 3
+      max-order: 10
 
 logger:
   levels:

@@ -3,6 +3,7 @@ package com.templatetasks.java.micronaut.data;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * @author Vadim Starichkov (starichkovva@gmail.com)
@@ -16,6 +17,8 @@ public class Note {
     private String title;
 
     private String content;
+
+    private Set<Tag> tags;
 
     private LocalDateTime created;
 
