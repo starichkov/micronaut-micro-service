@@ -1,0 +1,21 @@
+datasources:
+  default:
+    url: jdbc:h2:mem:${database.schema};MODE=POSTGRESQL;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS ${database.schema}
+    username: 'sa'
+    password: ''
+    driverClassName: org.h2.Driver
+    schema: ${database.schema}
+
+jpa:
+  default:
+    properties:
+      hibernate:
+        show_sql: true
+
+logger:
+  levels:
+    io.micronaut.data: DEBUG
+    io.micronaut.flyway: DEBUG
+    org.flywaydb: TRACE
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
