@@ -1,7 +1,7 @@
 database:
   host: ${DATABASE_HOST:localhost}
   port: ${DATABASE_PORT:5432}
-  schema: ${DATABASE_SCHEMA:micro_notes}
+  schema: ${DATABASE_NAME:micro_notes}
   user: ${DATABASE_USER}
   pass: ${DATABASE_PASS}
 

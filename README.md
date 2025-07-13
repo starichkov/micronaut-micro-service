@@ -38,7 +38,7 @@ The application requires a PostgreSQL database. You need to:
 3. Set the following environment variables:
    - `DATABASE_HOST` - PostgreSQL host (default: localhost)
    - `DATABASE_PORT` - PostgreSQL port (default: 5432)
-   - `DATABASE_SCHEMA` - Database schema name (default: micro_notes)
+   - `DATABASE_NAME` - Database schema name (default: micro_notes)
    - `DATABASE_USER` - Database username
    - `DATABASE_PASS` - Database password
 
@@ -60,6 +60,8 @@ http://localhost:8080
 
 ### Docker Run
 
+#### Using Micronaut Maven Plugin
+
 ```shell
 # Build the Docker image
 mvn clean package -Dpackaging=docker
@@ -67,6 +69,44 @@ mvn clean package -Dpackaging=docker
 # Run the Docker container
 docker run -p 8080:8080 micronaut-micro-service
 ```
+
+#### Using Docker Compose
+
+This project includes a Docker Compose setup that runs both the application and a PostgreSQL database.
+
+The project uses a `.env` file to store environment variables for Docker Compose, including database credentials. This approach prevents sensitive information from being hardcoded in the docker-compose.yml file.
+
+```shell
+# Build and start the containers
+docker-compose up -d
+
+# Stop the containers
+docker-compose down
+
+# Stop the containers and remove volumes
+docker-compose down -v
+```
+
+The Docker Compose setup includes:
+- The application running on port 8080
+- PostgreSQL 17.5 with Alpine 3.22 running on port 5432
+- Health checks for both services
+- Volume for PostgreSQL data persistence
+- Environment variables loaded from `.env` file
+
+##### Environment Variables
+
+The `.env` file contains the following variables:
+- `DATABASE_HOST`: PostgreSQL host (set to "postgres" for Docker Compose)
+- `DATABASE_PORT`: PostgreSQL port
+- `DATABASE_NAME`: Database schema name
+- `DATABASE_USER`: Database username
+- `DATABASE_PASS`: Database password
+- `POSTGRES_DB`: PostgreSQL database name
+- `POSTGRES_USER`: PostgreSQL username
+- `POSTGRES_PASSWORD`: PostgreSQL password
+
+You can modify these variables in the `.env` file to customize your setup.
 
 ## Using the Notes and Tags UI
 
@@ -132,6 +172,21 @@ There's also a tag management panel that appears when you click "Manage Tags" on
 - `POST /tags` - Create a new tag
 - `PATCH /tags/{id}` - Update a tag
 - `DELETE /tags/{id}` - Delete a tag
+
+### Health API
+
+- `GET /health` - Get application health status
+  - Returns a JSON object with the following structure:
+    ```json
+    {
+      "status": "UP",
+      "timestamp": 1234567890123,
+      "database": {
+        "status": "UP"
+      }
+    }
+    ```
+  - If the database is down, the response will include an error message and the overall status will be "DOWN"
 
 ## GraalVM build
 
