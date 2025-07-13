@@ -163,6 +163,28 @@ mvn clean package -Dpackaging=docker-native
 
 - [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
 
-## License
+---
 
-See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
+## 🧾 About TemplateTasks
+
+TemplateTasks is a personal software development initiative by Vadim Starichkov, focused on sharing open-source libraries, services, and technical demos.
+
+It operates independently and outside the scope of any employment.
+
+All code is released under permissive open-source licenses. The legal structure may evolve as the project grows.
+
+## 📜 License & Attribution
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE.md) file for details.
+
+### Using This Project?
+
+If you use this code in your own projects, attribution is required under the MIT License:
+
+```
+Based on micronaut-micro-service by Vadim Starichkov, TemplateTasks
+
+https://github.com/starichkov/micronaut-micro-service
+```
+
+**Copyright © 2025 Vadim Starichkov, TemplateTasks**
