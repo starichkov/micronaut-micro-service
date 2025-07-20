@@ -1,7 +1,7 @@
 database:
   host: ${DATABASE_HOST:localhost}
   port: ${DATABASE_PORT:5432}
-  schema: ${DATABASE_NAME:micro_notes}
+  name: ${DATABASE_NAME:micro_notes}
   user: ${DATABASE_USER}
   pass: ${DATABASE_PASS}
 
@@ -17,7 +17,7 @@ micronaut:
 
 datasources:
   default:
-    url: jdbc:postgresql://${database.host}:${database.port}/${database.schema}
+    url: jdbc:postgresql://${database.host}:${database.port}/${database.name}
     username: ${database.user}
     password: ${database.pass}
     driverClassName: org.postgresql.Driver

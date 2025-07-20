@@ -29,7 +29,7 @@ This project is a Micronaut framework based, 'ready-to-play' micro-service with 
 The application requires a PostgreSQL database. You need to:
 
 1. Install PostgreSQL 17.5 or later
-2. Create a database schema named `micro_notes` (or use a custom name and configure it in environment variables)
+2. Create a database named `micro_notes` (or use a custom name and configure it in environment variables)
    ```postgresql
    CREATE DATABASE micro_notes;
    CREATE USER micro_user WITH PASSWORD '<<password_here>>';
@@ -38,7 +38,7 @@ The application requires a PostgreSQL database. You need to:
 3. Set the following environment variables:
    - `DATABASE_HOST` - PostgreSQL host (default: localhost)
    - `DATABASE_PORT` - PostgreSQL port (default: 5432)
-   - `DATABASE_NAME` - Database schema name (default: micro_notes)
+   - `DATABASE_NAME` - Database name (default: micro_notes)
    - `DATABASE_USER` - Database username
    - `DATABASE_PASS` - Database password
 
@@ -99,7 +99,7 @@ The Docker Compose setup includes:
 The `.env` file contains the following variables:
 - `DATABASE_HOST`: PostgreSQL host (set to "postgres" for Docker Compose)
 - `DATABASE_PORT`: PostgreSQL port
-- `DATABASE_NAME`: Database schema name
+- `DATABASE_NAME`: Database name
 - `DATABASE_USER`: Database username
 - `DATABASE_PASS`: Database password
 - `POSTGRES_DB`: PostgreSQL database name
