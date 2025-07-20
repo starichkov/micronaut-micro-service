@@ -42,3 +42,4 @@ netty:
 logger:
   levels:
     io.micronaut.http: TRACE
+    io.micronaut.http.body.ByteBody: WARN

@@ -2,6 +2,7 @@ package com.templatetasks.java.micronaut.api.http;
 
 import com.templatetasks.java.micronaut.data.Note;
 import com.templatetasks.java.micronaut.service.NoteService;
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
@@ -15,7 +16,7 @@ import java.util.List;
  * @since 17.03.2023 13:24
  */
 @Controller("/notes")
-@ExecuteOn(TaskExecutors.IO)
+@ExecuteOn(TaskExecutors.VIRTUAL)
 public class NotesController {
 
     private final NoteService service;
@@ -26,23 +27,23 @@ public class NotesController {
     }
 
     @Get(produces = MediaType.APPLICATION_JSON)
-    public List<Note> findAll() {
-        return service.findAll();
+    public HttpResponse<List<Note>> findAll() {
+        return HttpResponse.ok(service.findAll());
     }
 
     @Get(value = "/{id}", produces = MediaType.APPLICATION_JSON)
-    public Note get(@PathVariable("id") Long id) {
-        return service.get(id);
+    public HttpResponse<Note> get(@PathVariable("id") Long id) {
+        return HttpResponse.ok(service.get(id));
     }
 
     @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public Note create(@Body Note note) {
-        return service.create(note);
+    public HttpResponse<Note> create(@Body Note note) {
+        return HttpResponse.ok(service.create(note));
     }
 
     @Patch(value = "/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public Note update(@PathVariable("id") Long id, @Body Note note) {
-        return service.update(id, note);
+    public HttpResponse<Note> update(@PathVariable("id") Long id, @Body Note note) {
+        return HttpResponse.ok(service.update(id, note));
     }
 
     @Delete("/{id}")
@@ -51,12 +52,12 @@ public class NotesController {
     }
 
     @Post(value = "/{noteId}/tags/{tagId}", produces = MediaType.APPLICATION_JSON)
-    public Note addTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
-        return service.addTag(noteId, tagId);
+    public HttpResponse<Note> addTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
+        return HttpResponse.ok(service.addTag(noteId, tagId));
     }
 
     @Delete(value = "/{noteId}/tags/{tagId}", produces = MediaType.APPLICATION_JSON)
-    public Note removeTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
-        return service.removeTag(noteId, tagId);
+    public HttpResponse<Note> removeTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
+        return HttpResponse.ok(service.removeTag(noteId, tagId));
     }
 }

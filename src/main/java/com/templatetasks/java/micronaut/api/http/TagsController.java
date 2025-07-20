@@ -2,6 +2,7 @@ package com.templatetasks.java.micronaut.api.http;
 
 import com.templatetasks.java.micronaut.data.Tag;
 import com.templatetasks.java.micronaut.service.TagService;
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
@@ -15,7 +16,7 @@ import java.util.List;
  * @since 14.09.2022 15:24
  */
 @Controller("/tags")
-@ExecuteOn(TaskExecutors.IO)
+@ExecuteOn(TaskExecutors.VIRTUAL)
 public class TagsController {
 
     private final TagService service;
@@ -26,23 +27,23 @@ public class TagsController {
     }
 
     @Get(produces = MediaType.APPLICATION_JSON)
-    public List<Tag> findAll() {
-        return service.findAll();
+    public HttpResponse<List<Tag>> findAll() {
+        return HttpResponse.ok(service.findAll());
     }
 
     @Get(value = "/{id}", produces = MediaType.APPLICATION_JSON)
-    public Tag get(Long id) {
-        return service.get(id);
+    public HttpResponse<Tag> get(Long id) {
+        return HttpResponse.ok(service.get(id));
     }
 
     @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public Tag create(@Body Tag tag) {
-        return service.create(tag);
+    public HttpResponse<Tag> create(@Body Tag tag) {
+        return HttpResponse.ok(service.create(tag));
     }
 
     @Patch(value = "/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public Tag update(@PathVariable("id") Long id, @Body Tag tag) {
-        return service.update(id, tag);
+    public HttpResponse<Tag> update(@PathVariable("id") Long id, @Body Tag tag) {
+        return HttpResponse.ok(service.update(id, tag));
     }
 
     @Delete("/{id}")
