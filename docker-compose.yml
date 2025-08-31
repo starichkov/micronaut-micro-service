@@ -22,7 +22,7 @@ services:
       start_period: 40s
 
   postgres:
-    image: postgres:17.5-alpine3.22
+    image: postgres:17.6-alpine3.22
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}

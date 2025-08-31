@@ -20,7 +20,7 @@ This project is a Micronaut framework based, 'ready-to-play' micro-service with 
 | Java       | 21      |
 | Maven      | 3.8.1+  |
 | Micronaut  | 4.9.3   |
-| PostgreSQL | 17.5    |
+| PostgreSQL | 17.6    |
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ This project is a Micronaut framework based, 'ready-to-play' micro-service with 
 
 The application requires a PostgreSQL database. You need to:
 
-1. Install PostgreSQL 17.5 or later
+1. Install PostgreSQL 17 or later
 2. Create a database named `micro_notes` (or use a custom name and configure it in environment variables)
    ```postgresql
    CREATE DATABASE micro_notes;
@@ -89,7 +89,7 @@ docker-compose down -v
 
 The Docker Compose setup includes:
 - The application running on port 8080
-- PostgreSQL 17.5 with Alpine 3.22 running on port 5432
+- PostgreSQL 17.6 with Alpine 3.22 running on port 5432
 - Health checks for both services
 - Volume for PostgreSQL data persistence
 - Environment variables loaded from `.env` file
