@@ -98,6 +98,17 @@
             <artifactId>jakarta.annotation-api</artifactId>
             <scope>compile</scope>
         </dependency>
+        <!-- Cache dependencies -->
+<!--
+        <dependency>
+            <groupId>io.micronaut.cache</groupId>
+            <artifactId>micronaut-cache-core</artifactId>
+        </dependency>
+-->
+        <dependency>
+            <groupId>io.micronaut.redis</groupId>
+            <artifactId>micronaut-redis-lettuce</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -178,6 +189,11 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut.cache</groupId>
+            <artifactId>micronaut-cache-caffeine</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

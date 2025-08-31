@@ -21,6 +21,7 @@ This project is a Micronaut framework based, 'ready-to-play' micro-service with 
 | Maven      | 3.8.1+  |
 | Micronaut  | 4.9.1   |
 | PostgreSQL | 17.5    |
+| Valkey     | 7.2.10  |
 
 ## Prerequisites
 
@@ -43,6 +44,23 @@ The application requires a PostgreSQL database. You need to:
    - `DATABASE_PASS` - Database password
 
 The application uses Flyway for database migrations, which will automatically create the necessary tables when the application starts.
+
+### Cache Setup
+
+The application uses Valkey 7.2.10 (a Redis-compatible distributed cache) for caching read endpoints. This improves performance by reducing database load for frequently accessed data.
+
+1. Set the following environment variables (optional, defaults provided):
+   - `REDIS_HOST` - Valkey host (default: localhost)
+   - `REDIS_PORT` - Valkey port (default: 6379)
+
+The application is configured with the following cache settings:
+- Time-to-live (TTL): 60 minutes
+- Expire-after-write: 60 minutes
+- Cache names: notes, note, tags, tag
+
+The caching implementation automatically:
+- Caches results of read operations (GET requests)
+- Invalidates relevant cache entries when data is modified (POST, PATCH, DELETE requests)
 
 ## Running the Application
 
@@ -90,8 +108,9 @@ docker-compose down -v
 The Docker Compose setup includes:
 - The application running on port 8080
 - PostgreSQL 17.5 with Alpine 3.22 running on port 5432
-- Health checks for both services
-- Volume for PostgreSQL data persistence
+- Valkey 7.2.10 (Redis-compatible cache) running on port 6379
+- Health checks for all services
+- Volumes for PostgreSQL and Valkey data persistence
 - Environment variables loaded from `.env` file
 
 ##### Environment Variables
@@ -105,6 +124,8 @@ The `.env` file contains the following variables:
 - `POSTGRES_DB`: PostgreSQL database name
 - `POSTGRES_USER`: PostgreSQL username
 - `POSTGRES_PASSWORD`: PostgreSQL password
+- `REDIS_HOST`: Valkey host (set to "valkey" for Docker Compose)
+- `REDIS_PORT`: Valkey port (default: 6379)
 
 You can modify these variables in the `.env` file to customize your setup.
 

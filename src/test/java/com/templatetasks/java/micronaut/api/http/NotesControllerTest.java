@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
  * @author Vadim Starichkov (starichkovva@gmail.com)
  * @since 19.03.2023 12:21
  */
-@MicronautTest
+@MicronautTest(environments = "test")
 class NotesControllerTest {
 
     @Inject

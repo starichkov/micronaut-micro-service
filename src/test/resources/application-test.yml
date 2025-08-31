@@ -19,3 +19,18 @@ logger:
     org.flywaydb: TRACE
     org.hibernate.SQL: DEBUG
     org.hibernate.type: TRACE
+
+redis:
+  enabled: false
+  caches: {}
+
+micronaut:
+  caches:
+    notes:
+      caffeine:
+        maximum-size: 100
+        expire-after-write: 10m
+    tags:
+      caffeine:
+        maximum-size: 50
+        expire-after-write: 5m
