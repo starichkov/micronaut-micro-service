@@ -8,10 +8,9 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import jakarta.inject.Inject;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Vadim Starichkov (starichkovva@gmail.com)
@@ -31,8 +30,8 @@ public class NotesController {
     }
 
     @Get(produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<List<NoteDto>> findAll() {
-        return HttpResponse.ok(service.findAll().stream().map(mapper::toDto).collect(Collectors.toList()));
+    public HttpResponse<Page<NoteDto>> findAll(Pageable pageable) {
+        return HttpResponse.ok(service.findAll(pageable).map(mapper::toDto));
     }
 
     @Get(value = "/{id}", produces = MediaType.APPLICATION_JSON)

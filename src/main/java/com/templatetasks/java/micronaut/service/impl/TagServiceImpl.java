@@ -7,6 +7,8 @@ import com.templatetasks.java.micronaut.data.mapper.TagMapper;
 import com.templatetasks.java.micronaut.service.TagService;
 import io.micronaut.context.annotation.Primary;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import io.micronaut.transaction.annotation.ReadOnly;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -49,6 +51,13 @@ public class TagServiceImpl implements TagService {
         return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .map(tagMapper::map)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @ReadOnly
+    public Page<Tag> findAll(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(tagMapper::map);
     }
 
     @Override

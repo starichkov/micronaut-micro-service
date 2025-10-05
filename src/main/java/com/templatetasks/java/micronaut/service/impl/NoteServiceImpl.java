@@ -8,6 +8,8 @@ import com.templatetasks.java.micronaut.data.mapper.NoteMapper;
 import com.templatetasks.java.micronaut.service.NoteService;
 import io.micronaut.context.annotation.Primary;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import jakarta.transaction.Transactional;
@@ -49,6 +51,12 @@ public class NoteServiceImpl implements NoteService {
         return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .map(noteMapper::map)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<Note> findAll(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(noteMapper::map);
     }
 
     @Override
