@@ -29,6 +29,7 @@ micronaut:
 datasources:
   default:
     url: jdbc:postgresql://${database.host}:${database.port}/${database.name}
+    schema: ${database.name}
     username: ${database.user}
     password: ${database.pass}
     driverClassName: org.postgresql.Driver
@@ -37,6 +38,7 @@ flyway:
   datasources:
     default:
       enabled: true
+      default-schema: ${database.name}
 
 jpa:
   default:
