@@ -25,6 +25,17 @@ micronaut:
   openapi:
     views:
       spec: "swagger-ui.enabled=true"
+  metrics:
+    enabled: true
+    export:
+      prometheus:
+        enabled: true
+        step: PT1M
+        descriptions: true
+
+endpoints:
+  prometheus:
+    sensitive: false
 
 datasources:
   default:

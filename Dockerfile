@@ -1,10 +1,12 @@
-FROM eclipse-temurin:21.0.7_6-jdk-alpine-3.21 AS build
+FROM eclipse-temurin:21.0.8_9-jdk-alpine-3.22 AS build
 
 WORKDIR /app
 COPY . .
 RUN ./mvnw package -DskipTests
 
-FROM eclipse-temurin:21.0.7_6-jre-alpine-3.21
+FROM eclipse-temurin:21.0.8_9-jdk-alpine-3.22
+
+RUN apk add --no-cache curl
 
 WORKDIR /app
 COPY --from=build /app/target/micronaut-micro-service-*.jar app.jar
