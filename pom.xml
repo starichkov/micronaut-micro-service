@@ -98,6 +98,10 @@
             <artifactId>jakarta.annotation-api</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.micronaut.openapi</groupId>
+            <artifactId>micronaut-openapi-annotations</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -223,17 +227,10 @@
                             <artifactId>micronaut-graal</artifactId>
                             <version>${micronaut.version}</version>
                         </path>
-<!--
                         <path>
-                            <groupId>io.micronaut</groupId>
-                            <artifactId>micronaut-http-validation</artifactId>
-                            <version>${micronaut.version}</version>
+                            <groupId>io.micronaut.openapi</groupId>
+                            <artifactId>micronaut-openapi</artifactId>
                         </path>
-                        <path>
-                            <groupId>io.micronaut.validation</groupId>
-                            <artifactId>micronaut-validation-processor</artifactId>
-                        </path>
--->
                     </annotationProcessorPaths>
                     <compilerArgs>
                         <arg>-Amicronaut.processing.group=com.templatetasks.java</arg>

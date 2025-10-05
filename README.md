@@ -58,6 +58,12 @@ The application will start on port 8080 by default. You can access the UI by nav
 http://localhost:8080
 ```
 
+### API documentation (Swagger/OpenAPI)
+
+Swagger UI: http://localhost:8080/swagger-ui
+
+If you change the host or port, adjust the URLs accordingly.
+
 ### Docker Run
 
 #### Using Micronaut Maven Plugin
