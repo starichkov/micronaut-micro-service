@@ -15,7 +15,7 @@ import java.util.List;
  * @author Vadim Starichkov (starichkovva@gmail.com)
  * @since 17.03.2023 13:24
  */
-@Controller("/notes")
+@Controller("/v1/notes")
 @ExecuteOn(TaskExecutors.VIRTUAL)
 public class NotesController {
 

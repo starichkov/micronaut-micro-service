@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 class TagsControllerTest {
 
     @Inject
-    @Client("/tags")
+    @Client("/v1/tags")
     HttpClient client;
 
     @Inject

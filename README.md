@@ -157,21 +157,21 @@ There's also a tag management panel that appears when you click "Manage Tags" on
 
 ### Notes API
 
-- `GET /notes` - Get all notes
-- `GET /notes/{id}` - Get a specific note
-- `POST /notes` - Create a new note
-- `PATCH /notes/{id}` - Update a note
-- `DELETE /notes/{id}` - Delete a note
-- `POST /notes/{noteId}/tags/{tagId}` - Add a tag to a note
-- `DELETE /notes/{noteId}/tags/{tagId}` - Remove a tag from a note
+- `GET /v1/notes` - Get all notes
+- `GET /v1/notes/{id}` - Get a specific note
+- `POST /v1/notes` - Create a new note
+- `PATCH /v1/notes/{id}` - Update a note
+- `DELETE /v1/notes/{id}` - Delete a note
+- `POST /v1/notes/{noteId}/tags/{tagId}` - Add a tag to a note
+- `DELETE /v1/notes/{noteId}/tags/{tagId}` - Remove a tag from a note
 
 ### Tags API
 
-- `GET /tags` - Get all tags
-- `GET /tags/{id}` - Get a specific tag
-- `POST /tags` - Create a new tag
-- `PATCH /tags/{id}` - Update a tag
-- `DELETE /tags/{id}` - Delete a tag
+- `GET /v1/tags` - Get all tags
+- `GET /v1/tags/{id}` - Get a specific tag
+- `POST /v1/tags` - Create a new tag
+- `PATCH /v1/tags/{id}` - Update a tag
+- `DELETE /v1/tags/{id}` - Delete a tag
 
 ### Health API
 

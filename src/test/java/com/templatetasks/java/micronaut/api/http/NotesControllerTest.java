@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 class NotesControllerTest {
 
     @Inject
-    @Client("/notes")
+    @Client("/v1/notes")
     HttpClient client;
 
     @Inject

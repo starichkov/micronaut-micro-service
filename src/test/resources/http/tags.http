@@ -1,8 +1,8 @@
-GET http://localhost:8080/tags/1
+GET http://localhost:8080/v1/tags/1
 
 ###
 
-POST http://localhost:8080/tags
+POST http://localhost:8080/v1/tags
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:8080/tags/1
+PATCH http://localhost:8080/v1/tags/1
 Content-Type: application/json
 
 {
@@ -24,4 +24,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/tags/1
+DELETE http://localhost:8080/v1/tags/1

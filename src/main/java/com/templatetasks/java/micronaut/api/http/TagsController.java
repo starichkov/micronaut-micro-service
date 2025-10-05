@@ -15,7 +15,7 @@ import java.util.List;
  * @author Vadim Starichkov (starichkovva@gmail.com)
  * @since 14.09.2022 15:24
  */
-@Controller("/tags")
+@Controller("/v1/tags")
 @ExecuteOn(TaskExecutors.VIRTUAL)
 public class TagsController {
 

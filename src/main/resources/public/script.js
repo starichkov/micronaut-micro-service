@@ -27,9 +27,9 @@ const closeTagManagementButton = document.getElementById('close-tag-management')
 
 // API endpoints
 const API = {
-    notes: '/notes',
-    tags: '/tags',
-    noteTag: (noteId, tagId) => `/notes/${noteId}/tags/${tagId}`
+    notes: '/v1/notes',
+    tags: '/v1/tags',
+    noteTag: (noteId, tagId) => `/v1/notes/${noteId}/tags/${tagId}`
 };
 
 // Event listeners
