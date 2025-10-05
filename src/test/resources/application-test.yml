@@ -1,7 +1,6 @@
 datasources:
   default:
-    # Using Testcontainers JDBC URL syntax to automatically start a PostgreSQL container
-    url: jdbc:tc:postgresql:17.6:///${database.name}
+    url: jdbc:tc:postgresql:17.6:///${database.name}?TC_REUSABLE=true
     driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
     username: 'test'
     password: 'test'
