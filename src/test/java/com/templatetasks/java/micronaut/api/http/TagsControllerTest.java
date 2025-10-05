@@ -10,8 +10,13 @@ import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import io.micronaut.core.type.Argument;
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -102,6 +107,32 @@ class TagsControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatus());
         assertEquals(200, response.code());
+    }
+
+    @Test
+    void listPaginated() {
+        var tag1 = new Tag();
+        tag1.setId(100L);
+        tag1.setLabel("t1");
+        var tag2 = new Tag();
+        tag2.setId(101L);
+        tag2.setLabel("t2");
+        var pageable = Pageable.from(1, 1);
+        var page = Page.of(List.of(tag2), pageable, 2L);
+
+        when(tagService.findAll(any(Pageable.class))).thenReturn(page);
+
+        var request = HttpRequest.GET("/?page=1&size=1");
+        Page<Tag> response = client.toBlocking()
+                .retrieve(request, Argument.of(Page.class, Tag.class));
+
+        assertNotNull(response);
+        assertEquals(1, response.getContent().size());
+        assertEquals(2, response.getTotalSize());
+        assertEquals(2, response.getTotalPages());
+        assertEquals(1, response.getPageNumber());
+        assertEquals(1, response.getSize());
+        assertEquals("t2", response.getContent().get(0).getLabel());
     }
 
     @MockBean(TagServiceImpl.class)

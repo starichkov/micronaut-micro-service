@@ -10,11 +10,16 @@ import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import io.micronaut.core.type.Argument;
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -108,6 +113,36 @@ class NotesControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatus());
         assertEquals(200, response.code());
+    }
+
+    @Test
+    void listPaginated() {
+        // Prepare mock page
+        var note1 = new Note();
+        note1.setId(10L);
+        note1.setTitle("N1");
+        note1.setContent("C1");
+        var note2 = new Note();
+        note2.setId(11L);
+        note2.setTitle("N2");
+        note2.setContent("C2");
+        var pageable = Pageable.from(0, 2);
+        var page = Page.of(List.of(note1, note2), pageable, 5L);
+
+        when(noteService.findAll(any(Pageable.class))).thenReturn(page);
+
+        var request = HttpRequest.GET("/?page=0&size=2");
+        Page<Note> response = client.toBlocking()
+                .retrieve(request, Argument.of(Page.class, Note.class));
+
+        assertNotNull(response);
+        assertEquals(2, response.getContent().size());
+        assertEquals(5, response.getTotalSize());
+        assertEquals(3, response.getTotalPages());
+        assertEquals(0, response.getPageNumber());
+        assertEquals(2, response.getSize());
+        assertEquals("N1", response.getContent().get(0).getTitle());
+        assertEquals("N2", response.getContent().get(1).getTitle());
     }
 
     @MockBean(NoteServiceImpl.class)

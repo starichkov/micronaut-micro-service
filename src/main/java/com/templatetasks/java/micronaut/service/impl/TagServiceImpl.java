@@ -40,23 +40,23 @@ public class TagServiceImpl implements TagService {
     @ReadOnly
     public Tag get(Long id) {
         return repository.findById(id)
-                       .map(tagMapper::map)
-                       .orElse(null);
+                         .map(tagMapper::map)
+                         .orElse(null);
     }
 
     @Override
     @ReadOnly
     public List<Tag> findAll() {
         return repository.findAll().stream()
-                .map(tagMapper::map)
-                .collect(Collectors.toList());
+                         .map(tagMapper::map)
+                         .collect(Collectors.toList());
     }
 
     @Override
     @ReadOnly
     public Page<Tag> findAll(Pageable pageable) {
         return repository.findAll(pageable)
-                .map(tagMapper::map);
+                         .map(tagMapper::map);
     }
 
     @Override
@@ -71,10 +71,10 @@ public class TagServiceImpl implements TagService {
     @Transactional
     public Tag update(Long id, Tag provided) {
         return repository.findById(id)
-                       .map(stored -> doUpdate(stored, provided))
-                       .map(repository::save)
-                       .map(tagMapper::map)
-                       .orElse(null);
+                         .map(stored -> doUpdate(stored, provided))
+                         .map(repository::save)
+                         .map(tagMapper::map)
+                         .orElse(null);
     }
 
     private TagEntity doUpdate(TagEntity stored, Tag provided) {

@@ -48,14 +48,14 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public List<Note> findAll() {
         return repository.findAll().stream()
-                .map(noteMapper::map)
-                .collect(Collectors.toList());
+                         .map(noteMapper::map)
+                         .collect(Collectors.toList());
     }
 
     @Override
     public Page<Note> findAll(Pageable pageable) {
         return repository.findAll(pageable)
-                .map(noteMapper::map);
+                         .map(noteMapper::map);
     }
 
     @Override

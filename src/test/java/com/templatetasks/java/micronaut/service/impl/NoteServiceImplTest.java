@@ -72,7 +72,7 @@ class NoteServiceImplTest {
 
     @Test
     void updateNotFound() {
-        var id = 3L;
+        var id = Long.MAX_VALUE; // ensure this ID does not exist in test DB
 
         var note = new Note();
         note.setTitle("Junk");
@@ -125,8 +125,13 @@ class NoteServiceImplTest {
         note2.setTitle("Note 2");
         note2.setContent("Content 2");
 
+        var note3 = new NoteEntity();
+        note3.setTitle("Note 3");
+        note3.setContent("Content 3");
+
         note1 = em.merge(note1);
         note2 = em.merge(note2);
+        note3 = em.merge(note3);
         em.getTransaction().commit();
 
         // Get all notes
@@ -134,9 +139,30 @@ class NoteServiceImplTest {
 
         // Verify
         assertNotNull(notes);
-        assertTrue(notes.size() >= 2);
+        assertTrue(notes.size() >= 3);
         assertTrue(notes.stream().anyMatch(n -> n.getTitle().equals("Note 1")));
         assertTrue(notes.stream().anyMatch(n -> n.getTitle().equals("Note 2")));
+        assertTrue(notes.stream().anyMatch(n -> n.getTitle().equals("Note 3")));
+    }
+
+    @Test
+    void findAllPageable() {
+        // Create some notes to paginate
+        var n1 = new NoteEntity(); n1.setTitle("P1"); n1.setContent("PC1");
+        var n2 = new NoteEntity(); n2.setTitle("P2"); n2.setContent("PC2");
+        var n3 = new NoteEntity(); n3.setTitle("P3"); n3.setContent("PC3");
+        em.merge(n1); em.merge(n2); em.merge(n3);
+        em.getTransaction().commit();
+
+        var page0 = service.findAll(io.micronaut.data.model.Pageable.from(0, 2));
+        assertNotNull(page0);
+        assertEquals(2, page0.getContent().size());
+        assertTrue(page0.getTotalSize() >= 3);
+
+        var page1 = service.findAll(io.micronaut.data.model.Pageable.from(1, 2));
+        assertNotNull(page1);
+        assertTrue(page1.getContent().size() >= 1);
+        assertEquals(page0.getTotalSize(), page1.getTotalSize());
     }
 
     @Test
