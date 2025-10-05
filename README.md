@@ -96,6 +96,8 @@ docker-compose down -v
 The Docker Compose setup includes:
 - The application running on port 8080
 - PostgreSQL 17.6 with Alpine 3.22 running on port 5432
+- Prometheus for metrics monitoring on port 9090
+- Jaeger for distributed tracing on port 16686 (UI) and 4318 (OTLP)
 - Health checks for both services
 - Volume for PostgreSQL data persistence
 - Environment variables loaded from `.env` file
@@ -113,6 +115,72 @@ The `.env` file contains the following variables:
 - `POSTGRES_PASSWORD`: PostgreSQL password
 
 You can modify these variables in the `.env` file to customize your setup.
+
+## Monitoring and Observability
+
+When running the application with Docker Compose, you have access to monitoring and observability tools:
+
+### Jaeger (Distributed Tracing)
+
+Jaeger UI is accessible at:
+```
+http://localhost:16686
+```
+
+Here you can:
+- View distributed traces of HTTP requests through the application
+- Analyze request latency and performance bottlenecks
+- Search and filter traces by service, operation, tags, and duration
+- Visualize the flow of requests across different components
+
+The application sends trace data to Jaeger using the OpenTelemetry Protocol (OTLP) over HTTP on port 4318.
+
+### Prometheus (Metrics Monitoring)
+
+Prometheus UI is accessible at:
+```
+http://localhost:9090
+```
+
+Here you can:
+- Query application metrics using PromQL
+- View time-series data for JVM metrics, HTTP requests, and custom application metrics
+- Create graphs and dashboards
+- Monitor resource usage and application performance
+
+The application exposes metrics at the `/prometheus` endpoint, which Prometheus scrapes every 15 seconds.
+
+### How Distributed Tracing Works
+
+The application uses a hierarchical span architecture for distributed tracing:
+
+#### Automatic HTTP Instrumentation (Root Spans)
+
+The `micronaut-tracing-opentelemetry-http` dependency provides automatic HTTP instrumentation without requiring any annotations on controllers. This library includes HTTP filters that:
+
+- Automatically intercept all incoming HTTP requests
+- Create a root span for each request at the controller entry point
+- Extract trace context from incoming HTTP headers (for distributed tracing across services)
+- Inject trace context into outgoing HTTP headers
+- Capture HTTP-specific metadata (method, URL, status code, etc.)
+
+This means that every REST API endpoint (like `GET /v1/notes` or `POST /v1/tags`) automatically gets a root span created without any explicit code or annotations in the controller classes.
+
+#### Service Layer Spans (Child Spans)
+
+While HTTP instrumentation handles the entry points automatically, the `@NewSpan` annotation is used on service methods to create child spans that provide detailed visibility into the service layer:
+
+- Each `@NewSpan` annotation creates a child span linked to its parent (the HTTP request span)
+- These child spans help track performance of individual business operations
+- Custom span names (e.g., `"note-service-create"`, `"tag-service-get"`) make it easy to identify operations in Jaeger
+
+**Example trace hierarchy:**
+```
+HTTP GET /v1/notes/1          (root span - automatic)
+  └─ note-service-get          (child span - @NewSpan annotation)
+```
+
+This architecture follows OpenTelemetry best practices: automatic instrumentation at integration points (HTTP) combined with manual instrumentation at business logic boundaries (service methods).
 
 ## Using the Notes and Tags UI
 

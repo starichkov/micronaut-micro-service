@@ -12,6 +12,8 @@ import io.micronaut.context.annotation.Primary;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
+import io.micronaut.tracing.annotation.ContinueSpan;
+import io.micronaut.tracing.annotation.NewSpan;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import jakarta.transaction.Transactional;
@@ -41,6 +43,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Nullable
     @Override
+    @NewSpan("note-service-get")
     public Note get(Long id) {
         return repository.findById(id)
                          .map(noteMapper::map)
@@ -48,6 +51,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    @NewSpan("note-service-find-all")
     public List<Note> findAll() {
         return repository.findAll().stream()
                          .map(noteMapper::map)
@@ -55,12 +59,14 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    @ContinueSpan
     public Page<Note> findAll(Pageable pageable) {
         return repository.findAll(pageable)
                          .map(noteMapper::map);
     }
 
     @Override
+    @NewSpan("note-service-create")
     public Note create(Note note) {
         var entity = noteMapper.map(note);
         entity = repository.save(entity);
@@ -68,6 +74,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    @NewSpan("note-service-update")
     public Note update(Long noteId, Note provided) {
         return repository.findById(noteId)
                          .map(stored -> doUpdate(stored, provided))
@@ -83,11 +90,13 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    @NewSpan("note-service-delete")
     public void delete(Long productId) {
         repository.deleteById(productId);
     }
 
     @Override
+    @NewSpan("note-service-add-tag")
     public Note addTag(Long noteId, Long tagId) {
         var note = getById(noteId);
         var tag = getTagById(tagId);
@@ -103,6 +112,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    @NewSpan("note-service-remove-tag")
     public Note removeTag(Long noteId, Long tagId) {
         var note = getById(noteId);
         var tag = getTagById(tagId);

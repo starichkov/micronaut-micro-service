@@ -9,6 +9,8 @@ import io.micronaut.context.annotation.Primary;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
+import io.micronaut.tracing.annotation.ContinueSpan;
+import io.micronaut.tracing.annotation.NewSpan;
 import io.micronaut.transaction.annotation.ReadOnly;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -38,6 +40,7 @@ public class TagServiceImpl implements TagService {
     @Nullable
     @Override
     @ReadOnly
+    @NewSpan("tag-service-get")
     public Tag get(Long id) {
         return repository.findById(id)
                          .map(tagMapper::map)
@@ -46,6 +49,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @ReadOnly
+    @NewSpan("tag-service-find-all")
     public List<Tag> findAll() {
         return repository.findAll().stream()
                          .map(tagMapper::map)
@@ -54,6 +58,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @ReadOnly
+    @ContinueSpan
     public Page<Tag> findAll(Pageable pageable) {
         return repository.findAll(pageable)
                          .map(tagMapper::map);
@@ -61,6 +66,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional
+    @NewSpan("tag-service-create")
     public Tag create(Tag tag) {
         var entity = tagMapper.map(tag);
         entity = repository.save(entity);
@@ -69,6 +75,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional
+    @NewSpan("tag-service-update")
     public Tag update(Long id, Tag provided) {
         return repository.findById(id)
                          .map(stored -> doUpdate(stored, provided))
@@ -84,6 +91,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional
+    @NewSpan("tag-service-delete")
     public void delete(Long id) {
         repository.deleteById(id);
     }

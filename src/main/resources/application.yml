@@ -5,6 +5,10 @@ database:
   user: ${DATABASE_USER}
   pass: ${DATABASE_PASS}
 
+jaeger:
+  host: ${JAEGER_HOST:localhost}
+  port: ${JAEGER_OTLP_PORT:4317}
+
 micronaut:
   application:
     name: micronautMicroService
@@ -32,6 +36,14 @@ micronaut:
         enabled: true
         step: PT1M
         descriptions: true
+
+otel:
+  traces:
+    exporter: otlp
+    sampler: always_on
+  exporter:
+    otlp:
+      endpoint: http://${jaeger.host}:${jaeger.port}
 
 endpoints:
   prometheus:
