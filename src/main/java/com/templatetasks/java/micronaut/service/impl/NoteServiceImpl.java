@@ -16,7 +16,6 @@ import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * @author Vadim Starichkov (starichkovva@gmail.com)
@@ -48,7 +47,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public List<Note> findAll() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
+        return repository.findAll().stream()
                 .map(noteMapper::map)
                 .collect(Collectors.toList());
     }

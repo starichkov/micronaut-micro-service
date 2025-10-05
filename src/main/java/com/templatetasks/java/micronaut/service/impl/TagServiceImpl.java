@@ -16,7 +16,6 @@ import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * @author Vadim Starichkov (starichkovva@gmail.com)
@@ -48,7 +47,7 @@ public class TagServiceImpl implements TagService {
     @Override
     @ReadOnly
     public List<Tag> findAll() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
+        return repository.findAll().stream()
                 .map(tagMapper::map)
                 .collect(Collectors.toList());
     }
