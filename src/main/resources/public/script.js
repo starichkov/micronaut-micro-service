@@ -55,7 +55,9 @@ async function fetchAllNotes() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        allNotes = await response.json();
+        const data = await response.json();
+        // Handle paginated response - extract content array
+        allNotes = Array.isArray(data) ? data : (data.content || []);
         renderNotes();
     } catch (error) {
         console.error('Error fetching notes:', error);
@@ -150,7 +152,9 @@ async function fetchAllTags() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        allTags = await response.json();
+        const data = await response.json();
+        // Handle paginated response - extract content array
+        allTags = Array.isArray(data) ? data : (data.content || []);
         renderTags();
     } catch (error) {
         console.error('Error fetching tags:', error);
