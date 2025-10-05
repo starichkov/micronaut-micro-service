@@ -9,6 +9,7 @@ import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
+import io.micronaut.tracing.annotation.NewSpan;
 import jakarta.inject.Inject;
 
 /**
@@ -26,6 +27,7 @@ public class NotesController {
         this.service = noteService;
     }
 
+    @NewSpan("note-service-find-all-pageable")
     @Get(produces = MediaType.APPLICATION_JSON)
     public HttpResponse<Page<Note>> findAll(Pageable pageable) {
         return HttpResponse.ok(service.findAll(pageable));

@@ -18,3 +18,7 @@ logger:
     org.flywaydb: TRACE
     org.hibernate.SQL: DEBUG
     org.hibernate.type: TRACE
+
+micronaut:
+  otel:
+    enabled: false

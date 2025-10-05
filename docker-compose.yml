@@ -11,9 +11,13 @@ services:
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASS=${DATABASE_PASS}
+      - JAEGER_HOST=jaeger
+      - JAEGER_OTLP_PORT=4317
     depends_on:
       postgres:
         condition: service_healthy
+      jaeger:
+        condition: service_started
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
@@ -51,6 +55,16 @@ services:
     depends_on:
       app:
         condition: service_healthy
+
+  jaeger:
+    image: jaegertracing/jaeger:2.11.0
+    environment:
+      - "COLLECTOR_OTLP_ENABLED=true"
+    ports:
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
+      - "5778:5778"
+      - "16686:16686" # Jaeger UI
 
 volumes:
   postgres-data:
