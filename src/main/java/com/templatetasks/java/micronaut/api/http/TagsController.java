@@ -1,7 +1,6 @@
 package com.templatetasks.java.micronaut.api.http;
 
-import com.templatetasks.java.micronaut.api.dto.TagDto;
-import com.templatetasks.java.micronaut.api.mapper.TagDtoMapper;
+import com.templatetasks.java.micronaut.data.Tag;
 import com.templatetasks.java.micronaut.service.TagService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
@@ -21,32 +20,30 @@ import jakarta.inject.Inject;
 public class TagsController {
 
     private final TagService service;
-    private final TagDtoMapper mapper;
 
     @Inject
-    public TagsController(TagService tagService, TagDtoMapper mapper) {
+    public TagsController(TagService tagService) {
         this.service = tagService;
-        this.mapper = mapper;
     }
 
     @Get(produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<Page<TagDto>> findAll(Pageable pageable) {
-        return HttpResponse.ok(service.findAll(pageable).map(mapper::toDto));
+    public HttpResponse<Page<Tag>> findAll(Pageable pageable) {
+        return HttpResponse.ok(service.findAll(pageable));
     }
 
     @Get(value = "/{id}", produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<TagDto> get(Long id) {
-        return HttpResponse.ok(mapper.toDto(service.get(id)));
+    public HttpResponse<Tag> get(Long id) {
+        return HttpResponse.ok(service.get(id));
     }
 
     @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<TagDto> create(@Body TagDto tag) {
-        return HttpResponse.ok(mapper.toDto(service.create(mapper.toDomain(tag))));
+    public HttpResponse<Tag> create(@Body Tag tag) {
+        return HttpResponse.ok(service.create(tag));
     }
 
     @Patch(value = "/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<TagDto> update(@PathVariable("id") Long id, @Body TagDto tag) {
-        return HttpResponse.ok(mapper.toDto(service.update(id, mapper.toDomain(tag))));
+    public HttpResponse<Tag> update(@PathVariable("id") Long id, @Body Tag tag) {
+        return HttpResponse.ok(service.update(id, tag));
     }
 
     @Delete("/{id}")

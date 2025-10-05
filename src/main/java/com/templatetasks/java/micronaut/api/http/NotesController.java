@@ -1,7 +1,6 @@
 package com.templatetasks.java.micronaut.api.http;
 
-import com.templatetasks.java.micronaut.api.dto.NoteDto;
-import com.templatetasks.java.micronaut.api.mapper.NoteDtoMapper;
+import com.templatetasks.java.micronaut.data.Note;
 import com.templatetasks.java.micronaut.service.NoteService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
@@ -21,32 +20,30 @@ import jakarta.inject.Inject;
 public class NotesController {
 
     private final NoteService service;
-    private final NoteDtoMapper mapper;
 
     @Inject
-    public NotesController(NoteService noteService, NoteDtoMapper mapper) {
+    public NotesController(NoteService noteService) {
         this.service = noteService;
-        this.mapper = mapper;
     }
 
     @Get(produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<Page<NoteDto>> findAll(Pageable pageable) {
-        return HttpResponse.ok(service.findAll(pageable).map(mapper::toDto));
+    public HttpResponse<Page<Note>> findAll(Pageable pageable) {
+        return HttpResponse.ok(service.findAll(pageable));
     }
 
     @Get(value = "/{id}", produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<NoteDto> get(@PathVariable("id") Long id) {
-        return HttpResponse.ok(mapper.toDto(service.get(id)));
+    public HttpResponse<Note> get(@PathVariable("id") Long id) {
+        return HttpResponse.ok(service.get(id));
     }
 
     @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<NoteDto> create(@Body NoteDto note) {
-        return HttpResponse.ok(mapper.toDto(service.create(mapper.toDomain(note))));
+    public HttpResponse<Note> create(@Body Note note) {
+        return HttpResponse.ok(service.create(note));
     }
 
     @Patch(value = "/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<NoteDto> update(@PathVariable("id") Long id, @Body NoteDto note) {
-        return HttpResponse.ok(mapper.toDto(service.update(id, mapper.toDomain(note))));
+    public HttpResponse<Note> update(@PathVariable("id") Long id, @Body Note note) {
+        return HttpResponse.ok(service.update(id, note));
     }
 
     @Delete("/{id}")
@@ -55,12 +52,12 @@ public class NotesController {
     }
 
     @Post(value = "/{noteId}/tags/{tagId}", produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<NoteDto> addTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
-        return HttpResponse.ok(mapper.toDto(service.addTag(noteId, tagId)));
+    public HttpResponse<Note> addTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
+        return HttpResponse.ok(service.addTag(noteId, tagId));
     }
 
     @Delete(value = "/{noteId}/tags/{tagId}", produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<NoteDto> removeTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
-        return HttpResponse.ok(mapper.toDto(service.removeTag(noteId, tagId)));
+    public HttpResponse<Note> removeTag(@PathVariable("noteId") Long noteId, @PathVariable("tagId") Long tagId) {
+        return HttpResponse.ok(service.removeTag(noteId, tagId));
     }
 }
