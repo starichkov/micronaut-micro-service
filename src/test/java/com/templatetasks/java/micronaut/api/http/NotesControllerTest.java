@@ -1,13 +1,16 @@
 package com.templatetasks.java.micronaut.api.http;
 
 import com.templatetasks.java.micronaut.data.Note;
+import com.templatetasks.java.micronaut.data.Tag;
 import com.templatetasks.java.micronaut.service.NoteService;
+import com.templatetasks.java.micronaut.service.exception.NotFoundException;
 import com.templatetasks.java.micronaut.service.impl.NoteServiceImpl;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.core.type.Argument;
@@ -16,7 +19,7 @@ import io.micronaut.data.model.Pageable;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -143,6 +146,92 @@ class NotesControllerTest {
         assertEquals(2, response.getSize());
         assertEquals("N1", response.getContent().get(0).getTitle());
         assertEquals("N2", response.getContent().get(1).getTitle());
+    }
+
+    @Test
+    void addTag() {
+        var noteId = 5L;
+        var tagId = 100L;
+
+        var tag = new Tag();
+        tag.setId(tagId);
+        tag.setLabel("important");
+
+        var note = new Note();
+        note.setId(noteId);
+        note.setTitle("Tagged Note");
+        note.setContent("This note has a tag!");
+        Set<Tag> tags = new HashSet<>();
+        tags.add(tag);
+        note.setTags(tags);
+
+        when(noteService.addTag(eq(noteId), eq(tagId)))
+                .thenReturn(note);
+
+        Note response = client.toBlocking()
+                .retrieve(HttpRequest.POST("/" + noteId + "/tags/" + tagId, ""), Note.class);
+
+        assertNotNull(response);
+        assertEquals(noteId, response.getId());
+        assertEquals(note.getTitle(), response.getTitle());
+        assertEquals(note.getContent(), response.getContent());
+        assertNotNull(response.getTags());
+        assertEquals(1, response.getTags().size());
+        assertTrue(response.getTags().stream().anyMatch(t -> t.getId().equals(tagId)));
+    }
+
+    @Test
+    void addTagWhenNotFoundExceptionThrown() {
+        var noteId = 7L;
+        var tagId = 300L;
+
+        when(noteService.addTag(eq(noteId), eq(tagId)))
+                .thenThrow(new NotFoundException("Note or tag not found"));
+
+        HttpClientResponseException exception = assertThrows(HttpClientResponseException.class, () ->
+                client.toBlocking().retrieve(HttpRequest.POST("/" + noteId + "/tags/" + tagId, ""), Note.class)
+        );
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, exception.getStatus());
+    }
+
+    @Test
+    void removeTag() {
+        var noteId = 6L;
+        var tagId = 200L;
+
+        var note = new Note();
+        note.setId(noteId);
+        note.setTitle("Untagged Note");
+        note.setContent("This note had a tag removed!");
+        note.setTags(new HashSet<>());
+
+        when(noteService.removeTag(eq(noteId), eq(tagId)))
+                .thenReturn(note);
+
+        Note response = client.toBlocking()
+                .retrieve(HttpRequest.DELETE("/" + noteId + "/tags/" + tagId), Note.class);
+
+        assertNotNull(response);
+        assertEquals(noteId, response.getId());
+        assertEquals(note.getTitle(), response.getTitle());
+        assertEquals(note.getContent(), response.getContent());
+        assertTrue(response.getTags() == null || response.getTags().isEmpty());
+    }
+
+    @Test
+    void removeTagWhenNotFoundExceptionThrown() {
+        var noteId = 8L;
+        var tagId = 400L;
+
+        when(noteService.removeTag(eq(noteId), eq(tagId)))
+                .thenThrow(new NotFoundException("Note or tag not found"));
+
+        HttpClientResponseException exception = assertThrows(HttpClientResponseException.class, () ->
+                client.toBlocking().retrieve(HttpRequest.DELETE("/" + noteId + "/tags/" + tagId), Note.class)
+        );
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, exception.getStatus());
     }
 
     @MockBean(NoteServiceImpl.class)

@@ -2,6 +2,7 @@ package com.templatetasks.java.micronaut.data.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -34,6 +35,7 @@ public class TagEntity extends BaseEntity {
     @Column(name = "modified_at")
     private LocalDateTime lastModified;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "tags") // Many-to-many relationship mapped by "tags" field in Note
     private Set<NoteEntity> notes = new HashSet<>();
 

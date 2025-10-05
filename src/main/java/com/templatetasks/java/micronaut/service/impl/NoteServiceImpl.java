@@ -4,8 +4,10 @@ import com.templatetasks.java.micronaut.data.Note;
 import com.templatetasks.java.micronaut.data.access.NoteRepository;
 import com.templatetasks.java.micronaut.data.access.TagRepository;
 import com.templatetasks.java.micronaut.data.entity.NoteEntity;
+import com.templatetasks.java.micronaut.data.entity.TagEntity;
 import com.templatetasks.java.micronaut.data.mapper.NoteMapper;
 import com.templatetasks.java.micronaut.service.NoteService;
+import com.templatetasks.java.micronaut.service.exception.NotFoundException;
 import io.micronaut.context.annotation.Primary;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.data.model.Page;
@@ -87,15 +89,12 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Note addTag(Long noteId, Long tagId) {
-        var noteOptional = repository.findById(noteId);
-        var tagOptional = tagRepository.findById(tagId);
+        var note = getById(noteId);
+        var tag = getTagById(tagId);
 
-        if (noteOptional.isEmpty() || tagOptional.isEmpty()) {
-            return null;
+        if (note.getTags().contains(tag)) {
+            return noteMapper.map(note);
         }
-
-        var note = noteOptional.get();
-        var tag = tagOptional.get();
 
         note.addTag(tag);
         note = repository.save(note);
@@ -105,19 +104,40 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Note removeTag(Long noteId, Long tagId) {
-        var noteOptional = repository.findById(noteId);
-        var tagOptional = tagRepository.findById(tagId);
+        var note = getById(noteId);
+        var tag = getTagById(tagId);
 
-        if (noteOptional.isEmpty() || tagOptional.isEmpty()) {
-            return null;
+        if (!note.getTags().contains(tag)) {
+            return noteMapper.map(note);
         }
-
-        var note = noteOptional.get();
-        var tag = tagOptional.get();
 
         note.removeTag(tag);
         note = repository.save(note);
 
         return noteMapper.map(note);
+    }
+
+    /**
+     * Get note by ID
+     *
+     * @param id note ID
+     * @return note entity
+     * @throws NotFoundException if note not found
+     */
+    private NoteEntity getById(Long id) {
+        return repository.findById(id)
+                         .orElseThrow(() -> new NotFoundException(String.format("Note with ID %d not found", id)));
+    }
+
+    /**
+     * Get tag by ID
+     *
+     * @param id tag ID
+     * @return tag entity
+     * @throws NotFoundException if tag not found
+     */
+    private TagEntity getTagById(Long id) {
+        return tagRepository.findById(id)
+                            .orElseThrow(() -> new NotFoundException(String.format("Tag with ID %d not found", id)));
     }
 }

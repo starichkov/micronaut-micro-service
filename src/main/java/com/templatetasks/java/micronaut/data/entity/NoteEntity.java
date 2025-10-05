@@ -2,6 +2,7 @@ package com.templatetasks.java.micronaut.data.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -29,6 +30,7 @@ public class NoteEntity extends BaseEntity {
     @Column(name = "content", nullable = true)
     private String content;
 
+    @ToString.Exclude
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "note_tag", // Name of the join table
