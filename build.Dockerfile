@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21.0.8_9-jdk-alpine-3.22 AS build
+FROM eclipse-temurin:21-jdk-alpine-3.22 AS build
 
 WORKDIR /app
 COPY . .
