@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 RUN ./mvnw package -DskipTests
 
-FROM eclipse-temurin:21.0.8_9-jdk-alpine-3.22
+FROM eclipse-temurin:21-jdk-alpine-3.22
 
 RUN apk add --no-cache curl
 
