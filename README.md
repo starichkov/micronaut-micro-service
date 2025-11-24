@@ -15,12 +15,13 @@ This project is a Micronaut framework based, 'ready-to-play' micro-service with 
 
 ## Technical information
 
-| Name       | Version |
-|------------|---------|
-| Java       | 21      |
-| Maven      | 3.8.1+  |
-| Micronaut  | 4.10.2   |
-| PostgreSQL | 17.6    |
+| Name           | Version |
+|----------------|---------|
+| Java           | 21      |
+| Maven          | 3.8.1+  |
+| Micronaut      | 4.10.2  |
+| PostgreSQL     | 17.6    |
+| Testcontainers | 2.0.x   |
 
 ## Prerequisites
 
