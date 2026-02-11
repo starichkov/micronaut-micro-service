@@ -53,15 +53,15 @@
         <micronaut.runtime>netty</micronaut.runtime>
         <exec.mainClass>com.templatetasks.java.micronaut.MicronautSimpleNotesApplication</exec.mainClass>
 
-        <commons.lang3.version>3.19.0</commons.lang3.version>
+        <commons.lang3.version>3.20.0</commons.lang3.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <testcontainers.version>2.0.2</testcontainers.version>
+        <testcontainers.version>2.0.3</testcontainers.version>
 
-        <maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.15.0</maven.compiler.plugin.version>
         <maven.pmd.plugin.version>3.28.0</maven.pmd.plugin.version>
         <maven.enforcer.plugin.version>3.6.2</maven.enforcer.plugin.version>
         <maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
-        <maven.versions.plugin.version>2.19.1</maven.versions.plugin.version>
+        <maven.versions.plugin.version>2.21.0</maven.versions.plugin.version>
         <jacoco.maven.plugin.version>0.8.14</jacoco.maven.plugin.version>
         <jacoco.coverage.instruction.minimum>0.98</jacoco.coverage.instruction.minimum>
         <jacoco.coverage.class.missed.maximum>1</jacoco.coverage.class.missed.maximum>
