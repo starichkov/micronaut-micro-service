@@ -47,8 +47,10 @@
 
     <properties>
         <packaging>jar</packaging>
-        <jdk.version>21</jdk.version>
-        <release.version>21</release.version>
+
+        <jdk.version>25</jdk.version>
+        <release.version>${jdk.version}</release.version>
+
         <micronaut.version>4.10.9</micronaut.version>
         <micronaut.runtime>netty</micronaut.runtime>
         <exec.mainClass>com.templatetasks.java.micronaut.MicronautSimpleNotesApplication</exec.mainClass>
@@ -374,7 +376,7 @@
                                     <version>[3.8.1,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>21</version>
+                                    <version>${jdk.version}</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>

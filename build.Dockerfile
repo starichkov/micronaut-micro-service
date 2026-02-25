@@ -1,10 +1,10 @@
-FROM eclipse-temurin:21-jdk-alpine-3.22 AS build
+FROM eclipse-temurin:25-jdk-alpine-3.23 AS build
 
 WORKDIR /app
 COPY . .
 RUN ./mvnw package -DskipTests
 
-FROM eclipse-temurin:21-jre-alpine-3.22
+FROM eclipse-temurin:25-jre-alpine-3.23
 
 RUN apk add --no-cache curl
 
