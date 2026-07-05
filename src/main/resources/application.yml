@@ -1,3 +1,6 @@
+jackson:
+  deserialization-features:
+    FAIL_ON_NULL_FOR_PRIMITIVES: false
 database:
   host: ${DATABASE_HOST:localhost}
   port: ${DATABASE_PORT:5432}

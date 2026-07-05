@@ -40,7 +40,8 @@ class NoteServiceImplTest {
         note.setContent("Really awesome and shiny piece of junk!");
 
         note = em.merge(note);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         var id = note.getId();
         assertNotNull(id);
@@ -90,7 +91,8 @@ class NoteServiceImplTest {
         entity.setTitle("Awesome Junk");
         entity.setContent("Really awesome and shiny piece of junk!");
         entity = em.merge(entity);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
         assertNotNull(entity);
 
         var id = entity.getId();
@@ -134,7 +136,8 @@ class NoteServiceImplTest {
         note1 = em.merge(note1);
         note2 = em.merge(note2);
         note3 = em.merge(note3);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         // Get all notes
         var notes = service.findAll();
@@ -154,7 +157,8 @@ class NoteServiceImplTest {
         var n2 = new NoteEntity(); n2.setTitle("P2"); n2.setContent("PC2");
         var n3 = new NoteEntity(); n3.setTitle("P3"); n3.setContent("PC3");
         em.merge(n1); em.merge(n2); em.merge(n3);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         var page0 = service.findAll(io.micronaut.data.model.Pageable.from(0, 2));
         assertNotNull(page0);
@@ -180,7 +184,8 @@ class NoteServiceImplTest {
         note.setTitle("Note 1");
         note.setContent("Content 1");
         note = em.merge(note);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         var noteId = note.getId();
         assertThrows(NotFoundException.class, () -> service.addTag(noteId, 100501L));
@@ -198,7 +203,8 @@ class NoteServiceImplTest {
 
         note = em.merge(note);
         tag = em.merge(tag);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         // Add the tag to the note
         var result = service.addTag(note.getId(), tag.getId());
@@ -235,7 +241,8 @@ class NoteServiceImplTest {
         // Add the tag to the note
         note.addTag(tag);
         note = em.merge(note);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         // Add the tag to the note
         var result = service.addTag(note.getId(), tag.getId());
@@ -268,7 +275,8 @@ class NoteServiceImplTest {
         note.setTitle("Note 1");
         note.setContent("Content 1");
         note = em.merge(note);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         var noteId = note.getId();
         assertThrows(NotFoundException.class, () -> service.removeTag(noteId, 100501L));
@@ -291,7 +299,8 @@ class NoteServiceImplTest {
         // Add the tag to the note
         note.addTag(tag);
         note = em.merge(note);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         // Remove the tag from the note
         var result = service.removeTag(note.getId(), tag.getId());
@@ -322,7 +331,8 @@ class NoteServiceImplTest {
 
         note = em.merge(note);
         tag = em.merge(tag);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         // Remove the tag from the note
         var result = service.removeTag(note.getId(), tag.getId());

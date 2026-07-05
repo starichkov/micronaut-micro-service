@@ -35,7 +35,8 @@ class TagServiceImplTest {
         entity.setLabel("tag-1");
 
         entity = em.merge(entity);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         var id = entity.getId();
         assertNotNull(id);
@@ -77,7 +78,8 @@ class TagServiceImplTest {
         var entity = new TagEntity();
         entity.setLabel("tag-4");
         entity = em.merge(entity);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
         assertNotNull(entity);
 
         var id = entity.getId();
@@ -116,7 +118,8 @@ class TagServiceImplTest {
         tag1 = em.merge(tag1);
         tag2 = em.merge(tag2);
         tag3 = em.merge(tag3);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         // Get all tags
         var tags = service.findAll();
@@ -136,7 +139,8 @@ class TagServiceImplTest {
         var e2 = new TagEntity(); e2.setLabel("p-tag-2");
         var e3 = new TagEntity(); e3.setLabel("p-tag-3");
         em.merge(e1); em.merge(e2); em.merge(e3);
-        em.getTransaction().commit();
+        em.flush();
+        em.clear();
 
         var page0 = service.findAll(io.micronaut.data.model.Pageable.from(0, 2));
         assertNotNull(page0);

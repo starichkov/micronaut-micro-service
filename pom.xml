@@ -10,7 +10,7 @@
     <parent>
         <groupId>io.micronaut.platform</groupId>
         <artifactId>micronaut-parent</artifactId>
-        <version>4.10.16</version>
+        <version>5.0.3</version>
     </parent>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -51,7 +51,7 @@
         <jdk.version>25</jdk.version>
         <release.version>${jdk.version}</release.version>
 
-        <micronaut.version>4.10.16</micronaut.version>
+        <micronaut.version>5.0.3</micronaut.version>
         <micronaut.runtime>netty</micronaut.runtime>
         <exec.mainClass>com.templatetasks.java.micronaut.MicronautSimpleNotesApplication</exec.mainClass>
 
@@ -61,8 +61,8 @@
 
         <maven.compiler.plugin.version>3.15.0</maven.compiler.plugin.version>
         <maven.pmd.plugin.version>3.28.0</maven.pmd.plugin.version>
-        <maven.enforcer.plugin.version>3.6.2</maven.enforcer.plugin.version>
-        <maven.surefire.plugin.version>3.5.5</maven.surefire.plugin.version>
+        <maven.enforcer.plugin.version>3.6.3</maven.enforcer.plugin.version>
+        <maven.surefire.plugin.version>3.5.6</maven.surefire.plugin.version>
         <maven.versions.plugin.version>2.21.0</maven.versions.plugin.version>
         <jacoco.maven.plugin.version>0.8.14</jacoco.maven.plugin.version>
         <jacoco.coverage.instruction.minimum>0.98</jacoco.coverage.instruction.minimum>
