@@ -19,7 +19,7 @@ This project is a Micronaut framework based, 'ready-to-play' micro-service with 
 |----------------|---------|
 | Java           | 25      |
 | Maven          | 3.8.1+  |
-| Micronaut      | 5.1.2   |
+| Micronaut      | 5.2.4   |
 | PostgreSQL     | 17.10   |
 | Testcontainers | 2.0.x   |
 
